@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- App Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/electricity_bill_calculator"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_color"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- Month Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_month"
+            android:textSize="18sp"
+            android:textColor="@color/text_color"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/monthSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="12dp"
+            android:minHeight="48dp"/>
+
+        <!-- Units Input -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_units"
+            android:textSize="18sp"
+            android:textColor="@color/text_color"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/unitsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/hint_units"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:minHeight="48dp"/>
+
+        <!-- Rebate Input -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rebate_percentage"
+            android:textSize="18sp"
+            android:textColor="@color/text_color"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <SeekBar
+            android:id="@+id/rebateSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="5"
+            android:progress="0"/>
+
+        <TextView
+            android:id="@+id/rebateValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textSize="16sp"
+            android:textColor="@color/primary_color"
+            android:gravity="center"/>
+
+        <!-- Calculate Button -->
+        <Button
+            android:id="@+id/calculateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/calculate_button"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/primary_color"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            android:padding="15dp"/>
+
+        <!-- Results Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/results_background"
+            android:padding="20dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/totalChargesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_charges"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/finalCostText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/final_cost"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"/>
+        </LinearLayout>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_button"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/secondary_color"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:enabled="false"/>
+
+        <!-- Navigation Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/viewBillsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/view_bills"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/accent_color"
+                android:textColor="@color/white"
+                android:layout_marginEnd="5dp"
+                android:padding="12dp"/>
+
+            <Button
+                android:id="@+id/aboutButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/about_button"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                android:padding="12dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

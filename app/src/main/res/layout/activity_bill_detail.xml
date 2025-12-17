@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bill_details"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_color"
+            android:layout_marginBottom="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/monthText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/month_label"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/unitsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/units_label"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:id="@+id/rebateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rebate_label"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color"
+                android:layout_marginVertical="10dp"/>
+
+            <TextView
+                android:id="@+id/totalChargesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_charges_label"
+                android:textSize="18sp"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/finalCostText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/final_cost_label"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_color"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Theme Colors -->
+    <color name="primary_color">#2196F3</color>
+    <color name="secondary_color">#4CAF50</color>
+    <color name="accent_color">#FF9800</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#F5F5F5</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_color">#333333</color>
+    <color name="text_light">#757575</color>
+
+    <!-- Border Colors -->
+    <color name="border_color">#DDDDDD</color>
+</resources>

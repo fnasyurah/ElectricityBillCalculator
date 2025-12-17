@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Electricity Bill Calculator</string>
+
+    <!-- Main Activity Strings -->
+    <string name="electricity_bill_calculator">⚡ Electricity Bill Calculator</string>
+    <string name="select_month">Select Month:</string>
+    <string name="enter_units">Units Used (kWh):</string>
+    <string name="rebate_percentage">Rebate Percentage (0-5%):</string>
+    <string name="calculate_button">Calculate Bill</string>
+    <string name="save_button">Save</string>
+    <string name="view_bills">View All Bills</string>
+    <string name="about_button">About Developer</string>
+    <string name="total_charges">Total Charges: -</string>
+    <string name="final_cost">Final Cost: -</string>
+    <string name="hint_units">Enter units (e.g., 250.5)</string>
+
+    <!-- Bills Activity Strings -->
+    <string name="saved_bills">📋 Saved Bills</string>
+    <string name="no_bills">No bills saved yet!\n\nGo back and calculate some bills.</string>
+
+    <!-- Detail Activity Strings -->
+    <string name="bill_details">📄 Bill Details</string>
+    <string name="month_label">Month:</string>
+    <string name="units_label">Units Used:</string>
+    <string name="rebate_label">Rebate:</string>
+    <string name="total_charges_label">Total Charges:</string>
+    <string name="final_cost_label">Final Cost:</string>
+
+    <!-- About Activity Strings -->
+    <string name="about_app">ℹ️ About This App</string>
+    <string name="student_info">👨‍🎓 Student Information</string>
+    <string name="app_details">📱 Application Details</string>
+    <string name="source_code">🌐 Source Code</string>
+    <string name="click_to_open">(Click to open in browser)</string>
+
+    <!-- Placeholder Strings (Update with YOUR Info) -->
+    <string name="full_name">NUR FATIN NASYURAH BINTI MOHD SHUKOR</string>
+    <string name="student_id">2023638086</string>
+    <string name="course">ICT602 Mobile Technology</string>
+    <string name="github_url">https://github.com/fnasyurah/ICT602-ElectricityBill</string>
+    <string name="copyright">© 2025 Nur Fatin Nasyurah. All rights reserved.\nICT602 Mobile Technology Assignment</string>
+</resources>
