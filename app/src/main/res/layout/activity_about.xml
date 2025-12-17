@@ -11,6 +11,8 @@
         android:orientation="vertical"
         android:gravity="center">
 
+
+
         <!-- App Title -->
         <TextView
             android:layout_width="wrap_content"
@@ -28,11 +30,17 @@
             android:text="Electricity Bill Calculator app is developed to calculate electricity bills efficiently"
             android:textSize="16sp"
             android:textColor="#333333"
-            android:gravity="center"
             android:layout_marginBottom="30dp"
             android:paddingHorizontal="10dp"/>
 
-
+        <!-- ADD  IMAGE VIEW SECTION -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/student_img"
+            android:contentDescription="Electricity Bill Calculator App Logo"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerCrop"/>
 
         <!-- Info Card -->
         <LinearLayout
@@ -47,7 +55,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Student Name: NUR FATN NASYURAH BINTI MOHD SHUKOR"
+                android:text="Student Name: NUR FATIN NASYURAH BINTI MOHD SHUKOR"
                 android:textSize="16sp"
                 android:layout_marginBottom="5dp"/>
 
@@ -93,7 +101,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="(https://github.com/fnasyurah/ElectricityBillCalculator.git)"
+                android:text="(Click to open in browser)"
                 android:textSize="12sp"
                 android:textColor="#666666"
                 android:orientation="vertical"

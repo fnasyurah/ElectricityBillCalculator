@@ -38,6 +38,6 @@
     <string name="full_name">NUR FATIN NASYURAH BINTI MOHD SHUKOR</string>
     <string name="student_id">2023638086</string>
     <string name="course">ICT602 Mobile Technology</string>
-    <string name="github_url">https://github.com/fnasyurah/ICT602-ElectricityBill</string>
+    <string name="github_url">https://github.com/fnasyurah/ElectricityBillCalculator.git</string>
     <string name="copyright">© 2025 Nur Fatin Nasyurah. All rights reserved.\nICT602 Mobile Technology Assignment</string>
 </resources>

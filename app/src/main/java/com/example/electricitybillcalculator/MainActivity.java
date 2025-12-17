@@ -32,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set custom title
-        //getSupportActionBar().setTitle("⚡ MyElectricBill Calculator");
-
-
         // Initialize database
         dbHelper = new DBHelper(this);
 
