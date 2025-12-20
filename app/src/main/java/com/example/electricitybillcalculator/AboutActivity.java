@@ -14,10 +14,9 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        // Set title and back button
+        // Set ActionBar title
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("About");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("ℹ️ About");
         }
 
         // Setup GitHub link click listener
@@ -34,11 +33,5 @@ public class AboutActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish(); // Go back to MainActivity
-        return true;
     }
 }

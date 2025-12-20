@@ -57,11 +57,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:hint="@string/hint_units"
+            android:hint="Enter units (1 - 1000 kWh)"
             android:background="@drawable/edittext_background"
             android:padding="12dp"
             android:minHeight="48dp"/>
-
         <!-- Rebate Input -->
         <TextView
             android:layout_width="match_parent"
@@ -149,38 +148,18 @@
             android:padding="12dp"
             android:enabled="false"/>
 
-        <!-- Navigation Buttons -->
-        <LinearLayout
+        <!-- View Bills Button (Full Width Now) -->
+        <Button
+            android:id="@+id/viewBillsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:text="@string/view_bills"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/accent_color"
+            android:textColor="@color/white"
             android:layout_marginTop="30dp"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/viewBillsButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/view_bills"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/accent_color"
-                android:textColor="@color/white"
-                android:layout_marginEnd="5dp"
-                android:padding="12dp"/>
-
-            <Button
-                android:id="@+id/aboutButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/about_button"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/primary_color"
-                android:textColor="@color/white"
-                android:layout_marginStart="5dp"
-                android:padding="12dp"/>
-        </LinearLayout>
+            android:padding="12dp"/>
 
     </LinearLayout>
 </ScrollView>

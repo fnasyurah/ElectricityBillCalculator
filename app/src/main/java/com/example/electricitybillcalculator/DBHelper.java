@@ -43,6 +43,15 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Add a new bill record to the database
+     * @param month The month of the bill
+     * @param units Electricity units used
+     * @param rebate Rebate percentage (0-5)
+     * @param totalCharges Total charges before rebate
+     * @param finalCost Final cost after rebate
+     * @return The row ID of the newly inserted row, or -1 if an error occurred
+     */
     public long addBill(String month, double units, double rebate,
                         double totalCharges, double finalCost) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -58,6 +67,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    /**
+     * Retrieve all bills from the database
+     * @return ArrayList of Bill objects ordered by ID in descending order (newest first)
+     */
     public ArrayList<Bill> getAllBills() {
         ArrayList<Bill> billList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -100,6 +113,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return billList;
     }
 
+    /**
+     * Retrieve a specific bill by its ID
+     * @param id The ID of the bill to retrieve
+     * @return Bill object if found, null otherwise
+     */
     public Bill getBillById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Bill bill = null;
@@ -126,5 +144,107 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return bill;
+    }
+
+    /**
+     * Update an existing bill record
+     * @param id The ID of the bill to update
+     * @param month Updated month
+     * @param units Updated units used
+     * @param rebate Updated rebate percentage
+     * @param totalCharges Updated total charges
+     * @param finalCost Updated final cost
+     * @return true if update successful, false otherwise
+     */
+    public boolean updateBill(int id, String month, double units, double rebate,
+                              double totalCharges, double finalCost) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_MONTH, month);
+        values.put(COLUMN_UNITS, units);
+        values.put(COLUMN_REBATE, rebate);
+        values.put(COLUMN_TOTAL_CHARGES, totalCharges);
+        values.put(COLUMN_FINAL_COST, finalCost);
+
+        int rowsAffected = db.update(TABLE_BILLS, values,
+                COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    /**
+     * Delete a bill record from the database
+     * @param id The ID of the bill to delete
+     * @return true if delete successful, false otherwise
+     */
+    public boolean deleteBill(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(TABLE_BILLS,
+                COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    /**
+     * Get the total number of bills in the database
+     * @return Count of bills
+     */
+    public int getBillsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = "SELECT * FROM " + TABLE_BILLS;
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    /**
+     * Delete all bills from the database
+     * @return Number of rows deleted
+     */
+    public int deleteAllBills() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(TABLE_BILLS, null, null);
+        db.close();
+        return rowsDeleted;
+    }
+
+    /**
+     * Search for bills by month
+     * @param month The month to search for
+     * @return ArrayList of Bill objects for the specified month
+     */
+    public ArrayList<Bill> getBillsByMonth(String month) {
+        ArrayList<Bill> billList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {COLUMN_ID, COLUMN_MONTH, COLUMN_UNITS,
+                COLUMN_REBATE, COLUMN_TOTAL_CHARGES, COLUMN_FINAL_COST};
+
+        String selection = COLUMN_MONTH + "=?";
+        String[] selectionArgs = { month };
+
+        Cursor cursor = db.query(TABLE_BILLS, columns, selection, selectionArgs,
+                null, null, COLUMN_ID + " DESC");
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Bill bill = new Bill(
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_MONTH)),
+                        cursor.getDouble(cursor.getColumnIndex(COLUMN_UNITS)),
+                        cursor.getDouble(cursor.getColumnIndex(COLUMN_REBATE)),
+                        cursor.getDouble(cursor.getColumnIndex(COLUMN_TOTAL_CHARGES)),
+                        cursor.getDouble(cursor.getColumnIndex(COLUMN_FINAL_COST))
+                );
+                billList.add(bill);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return billList;
     }
 }

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText unitsEditText;
     private SeekBar rebateSeekBar;
     private TextView rebateValue, totalChargesText, finalCostText;
-    private Button calculateButton, saveButton, viewBillsButton, aboutButton;
+    private Button calculateButton, saveButton, viewBillsButton;
 
     private double totalCharges = 0;
     private double finalCost = 0;
@@ -27,10 +27,23 @@ public class MainActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
 
+    // Variables for edit mode
+    private boolean isEditMode = false;
+    private int editBillId = -1;
+
+    // Constants for validation
+    private static final double MIN_UNITS = 1.0;
+    private static final double MAX_UNITS = 1000.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set ActionBar title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("⚡ Electricity Bill Calculator");
+        }
 
         // Initialize database
         dbHelper = new DBHelper(this);
@@ -38,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         initializeViews();
         setupMonthSpinner();
         setupListeners();
+
+        // Check if we're in edit mode
+        checkEditMode();
     }
 
     private void initializeViews() {
@@ -51,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         calculateButton = findViewById(R.id.calculateButton);
         saveButton = findViewById(R.id.saveButton);
         viewBillsButton = findViewById(R.id.viewBillsButton);
-        aboutButton = findViewById(R.id.aboutButton);
 
         saveButton.setEnabled(false);
     }
@@ -79,30 +94,110 @@ public class MainActivity extends AppCompatActivity {
         });
 
         calculateButton.setOnClickListener(v -> calculateBill());
-        saveButton.setOnClickListener(v -> saveToDatabase());
+        saveButton.setOnClickListener(v -> {
+            if (isEditMode) {
+                updateBillInDatabase();
+            } else {
+                saveToDatabase();
+            }
+        });
+
+        // View Bills button only available in normal mode
         viewBillsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, BillsActivity.class);
             startActivity(intent);
         });
-        aboutButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-            startActivity(intent);
-        });
+    }
+
+    private void checkEditMode() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            isEditMode = intent.getBooleanExtra("edit_mode", false);
+            editBillId = intent.getIntExtra("edit_bill_id", -1);
+
+            if (isEditMode && editBillId != -1) {
+                // We're in edit mode, load the bill data
+                loadBillForEditing(editBillId);
+            }
+        }
+    }
+
+    private void loadBillForEditing(int billId) {
+        Bill bill = dbHelper.getBillById(billId);
+
+        if (bill != null) {
+            // Update ActionBar title for edit mode
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle("✏️ Edit Bill");
+            }
+
+            // Hide View Bills button in edit mode
+            viewBillsButton.setVisibility(View.GONE);
+
+            // Set spinner to the correct month
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) monthSpinner.getAdapter();
+            int position = adapter.getPosition(bill.getMonth());
+            if (position >= 0) {
+                monthSpinner.setSelection(position);
+            }
+
+            // Set units
+            unitsEditText.setText(String.valueOf(bill.getUnits()));
+
+            // Set rebate
+            rebatePercentage = bill.getRebate();
+            rebateSeekBar.setProgress((int) rebatePercentage);
+            rebateValue.setText(bill.getRebate() + "%");
+
+            // Calculate and display results
+            totalCharges = bill.getTotalCharges();
+            finalCost = bill.getFinalCost();
+
+            DecimalFormat df = new DecimalFormat("0.00");
+            totalChargesText.setText("Total Charges: RM " + df.format(totalCharges));
+            finalCostText.setText("Final Cost: RM " + df.format(finalCost));
+
+            // Enable save button and change text
+            saveButton.setEnabled(true);
+            saveButton.setText("Update Bill");
+            saveButton.setBackgroundTintList(getResources().getColorStateList(R.color.accent_color));
+
+            // Show toast message
+            Toast.makeText(this, "Editing bill for " + bill.getMonth(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Bill not found!", Toast.LENGTH_SHORT).show();
+            finish(); // Go back if bill not found
+        }
     }
 
     private void calculateBill() {
         String unitsStr = unitsEditText.getText().toString().trim();
 
-        // Validation
+        // Validation - Check if empty
         if (unitsStr.isEmpty()) {
             unitsEditText.setError("Please enter electricity units");
             unitsEditText.requestFocus();
             return;
         }
 
-        double units = Double.parseDouble(unitsStr);
-        if (units <= 0) {
-            unitsEditText.setError("Units must be greater than 0");
+        double units;
+        try {
+            units = Double.parseDouble(unitsStr);
+        } catch (NumberFormatException e) {
+            unitsEditText.setError("Please enter a valid number");
+            unitsEditText.requestFocus();
+            return;
+        }
+
+        // Validation - Check min and max units
+        if (units < MIN_UNITS) {
+            unitsEditText.setError("Units must be at least " + MIN_UNITS + " kWh");
+            unitsEditText.requestFocus();
+            return;
+        }
+
+        if (units > MAX_UNITS) {
+            unitsEditText.setError("Units cannot exceed " + MAX_UNITS + " kWh");
             unitsEditText.requestFocus();
             return;
         }
@@ -168,7 +263,19 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        double units = Double.parseDouble(unitsStr);
+        double units;
+        try {
+            units = Double.parseDouble(unitsStr);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Invalid units value", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate again before saving
+        if (units < MIN_UNITS || units > MAX_UNITS) {
+            Toast.makeText(this, "Units must be between " + MIN_UNITS + " and " + MAX_UNITS + " kWh", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         long id = dbHelper.addBill(month, units, rebatePercentage, totalCharges, finalCost);
 
@@ -181,13 +288,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void updateBillInDatabase() {
+        String month = monthSpinner.getSelectedItem().toString();
+        String unitsStr = unitsEditText.getText().toString().trim();
+
+        if (unitsStr.isEmpty() || totalCharges == 0) {
+            Toast.makeText(this, "Please calculate bill first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        double units;
+        try {
+            units = Double.parseDouble(unitsStr);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Invalid units value", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate again before updating
+        if (units < MIN_UNITS || units > MAX_UNITS) {
+            Toast.makeText(this, "Units must be between " + MIN_UNITS + " and " + MAX_UNITS + " kWh", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean isUpdated = dbHelper.updateBill(editBillId, month, units, rebatePercentage, totalCharges, finalCost);
+
+        if (isUpdated) {
+            Toast.makeText(this, "Bill updated successfully!", Toast.LENGTH_SHORT).show();
+
+            // Go back to BillsActivity
+            Intent intent = new Intent(this, BillsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Error updating bill", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void clearForm() {
         unitsEditText.setText("");
         rebateSeekBar.setProgress(0);
+        rebatePercentage = 0;
         totalChargesText.setText("Total Charges: -");
         finalCostText.setText("Final Cost: -");
         totalCharges = 0;
         finalCost = 0;
+
+        // Reset edit mode if active
+        if (isEditMode) {
+            isEditMode = false;
+            editBillId = -1;
+            saveButton.setText("Save");
+            saveButton.setBackgroundTintList(getResources().getColorStateList(R.color.secondary_color));
+            // Reset ActionBar title
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle("⚡ Electricity Bill Calculator");
+            }
+            // Show View Bills button again
+            viewBillsButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

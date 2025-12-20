@@ -15,4 +15,7 @@
 
     <!-- Border Colors -->
     <color name="border_color">#DDDDDD</color>
+
+    <color name="delete_color">#F44336</color>
+
 </resources>

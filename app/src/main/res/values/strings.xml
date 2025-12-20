@@ -10,10 +10,9 @@
     <string name="calculate_button">Calculate Bill</string>
     <string name="save_button">Save</string>
     <string name="view_bills">View All Bills</string>
-    <string name="about_button">About Developer</string>
     <string name="total_charges">Total Charges: -</string>
     <string name="final_cost">Final Cost: -</string>
-    <string name="hint_units">Enter units (e.g., 250.5)</string>
+    <string name="hint_units">Enter units (1 - 1000 kWh)</string>
 
     <!-- Bills Activity Strings -->
     <string name="saved_bills">📋 Saved Bills</string>
@@ -39,5 +38,5 @@
     <string name="student_id">2023638086</string>
     <string name="course">ICT602 Mobile Technology</string>
     <string name="github_url">https://github.com/fnasyurah/ElectricityBillCalculator.git</string>
-    <string name="copyright">© 2025 Nur Fatin Nasyurah. All rights reserved.\nICT602 Mobile Technology Assignment</string>
+    <string name="copyright">© 2025 Nur Fatin Nasyurah. All rights reserved.\nElectricity Bill Calculator</string>
 </resources>

@@ -22,6 +22,11 @@ public class BillsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bills);
 
+        // Set ActionBar title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("📋 Saved Bills");
+        }
+
         // Set title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Saved Bills");

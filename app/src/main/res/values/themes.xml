@@ -1,9 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ElectricityBillCalculator" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.ElectricityBillCalculator" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Custom ActionBar style -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="actionBarSize">56dp</item>
+
+        <!-- Customize other aspects -->
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColorSecondary">@color/text_light</item>
     </style>
 
-    <style name="Theme.ElectricityBillCalculator" parent="Base.Theme.ElectricityBillCalculator" />
+    <!-- Custom ActionBar style -->
+    <style name="MyActionBar" parent="Widget.MaterialComponents.ActionBar.Solid">
+        <item name="titleTextStyle">@style/MyActionBarTitle</item>
+        <item name="background">@color/primary_color</item>
+        <item name="android:background">@color/primary_color</item>
+        <item name="android:elevation">4dp</item>
+        <item name="displayOptions">showTitle</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <!-- ActionBar title style -->
+    <style name="MyActionBarTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Optional: Theme without ActionBar for LandingActivity if you want -->
+    <style name="Theme.ElectricityBillCalculator.Landing" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
 </resources>
